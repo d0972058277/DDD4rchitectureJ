@@ -29,22 +29,28 @@ class Address extends ValueObject {
 public class ValueObjectTests {
     @Test
     public void testAddressEquality() {
+        // Given
         Address address1 = new Address("123 Main St", "City1", "12345");
         Address address2 = new Address("123 Main St", "City1", "12345");
         Address address3 = new Address("456 Elm St", "City2", "54321");
 
-        // Test equality
+        // When
+
+        // Then
         assertThat(address1).isEqualTo(address2);
         assertThat(address1).isNotEqualTo(address3);
     }
 
     @Test
     public void testAddressHashCode() {
+        // Given
         Address address1 = new Address("123 Main St", "City1", "12345");
         Address address2 = new Address("123 Main St", "City1", "12345");
         Address address3 = new Address("456 Elm St", "City2", "54321");
 
-        // Test hashCode
+        // When
+
+        // Then
         assertThat(address1.hashCode()).isEqualTo(address2.hashCode());
         assertThat(address1.hashCode()).isNotEqualTo(address3.hashCode());
     }
