@@ -1,4 +1,6 @@
 package porridge.my.way.dddarchitecturej.architecture.core;
 
-public interface IDomainEvent {
+import an.awesome.pipelinr.Notification;
+
+public interface IDomainEvent extends Notification {
 }
