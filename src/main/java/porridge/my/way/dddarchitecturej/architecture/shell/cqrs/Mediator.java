@@ -8,6 +8,10 @@ public class Mediator implements IMediator {
 
     private Pipeline pipeline;
 
+    public Mediator(Pipeline pipeline) {
+        this.pipeline = pipeline;
+    }
+
     @Override
     public Voidy execute(INoneCommand command) {
         return pipeline.send(command);
