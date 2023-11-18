@@ -8,11 +8,11 @@ import porridge.my.way.dddarchitecturej.architecture.core.Entity;
 
 public class OrderItem extends Entity<UUID> {
     @Getter
-    public int productId;
+    private int productId;
     @Getter
-    public BigDecimal price;
+    private BigDecimal price;
     @Getter
-    public int quantity;
+    private int quantity;
 
     private OrderItem(UUID id, int productId, BigDecimal price, int quantity) {
         super(id);

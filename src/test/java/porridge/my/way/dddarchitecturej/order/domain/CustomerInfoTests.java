@@ -21,8 +21,8 @@ public class CustomerInfoTests {
         CustomerInfo customerInfo = CustomerInfo.create(name, address);
 
         // Then
-        assertThat(customerInfo.name).isEqualTo(name);
-        assertThat(customerInfo.address).isEqualTo(address);
+        assertThat(customerInfo.getName()).isEqualTo(name);
+        assertThat(customerInfo.getAddress()).isEqualTo(address);
     }
 
     static Stream<String> failureParametersProvider() {

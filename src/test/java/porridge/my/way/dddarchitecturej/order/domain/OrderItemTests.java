@@ -20,9 +20,9 @@ public class OrderItemTests {
         OrderItem orderItem = OrderItem.create(productId, price, quantity);
 
         // Then
-        assertThat(orderItem.productId).isEqualTo(productId);
-        assertThat(orderItem.price).isEqualTo(price);
-        assertThat(orderItem.quantity).isEqualTo(quantity);
+        assertThat(orderItem.getProductId()).isEqualTo(productId);
+        assertThat(orderItem.getPrice()).isEqualTo(price);
+        assertThat(orderItem.getQuantity()).isEqualTo(quantity);
     }
 
     @Test

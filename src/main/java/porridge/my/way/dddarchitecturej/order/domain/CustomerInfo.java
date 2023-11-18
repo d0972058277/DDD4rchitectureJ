@@ -7,9 +7,9 @@ import porridge.my.way.dddarchitecturej.architecture.core.ValueObject;
 
 public class CustomerInfo extends ValueObject {
     @Getter
-    public String name;
+    private String name;
     @Getter
-    public String address;
+    private String address;
 
     private CustomerInfo(String name, String address) {
         this.name = name;
