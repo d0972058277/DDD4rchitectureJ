@@ -13,7 +13,7 @@ public class OrderTests {
         CustomerInfo customerInfo = CustomerInfo.create("name", "address");
 
         // When
-        Order order = Order.Create(customerInfo);
+        Order order = Order.create(customerInfo);
 
         // Then
         assertThat(order.getCustomerInfo()).isEqualTo(customerInfo);
@@ -26,14 +26,14 @@ public class OrderTests {
         var orderItem = createOrderItem();
 
         // When
-        order.Add(orderItem);
+        order.add(orderItem);
 
         // Then
         assertThat(order.getOrderItems()).contains(orderItem);
     }
 
     private Order createOrder() {
-        return Order.Create(CustomerInfo.create("name", "address"));
+        return Order.create(CustomerInfo.create("name", "address"));
     }
 
     private OrderItem createOrderItem() {

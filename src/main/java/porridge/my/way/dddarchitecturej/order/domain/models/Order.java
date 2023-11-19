@@ -23,7 +23,7 @@ public class Order extends AggregateRoot<UUID> {
         this.orderItems = orderItems;
     }
 
-    public static Order Create(CustomerInfo customerInfo) {
+    public static Order create(CustomerInfo customerInfo) {
         UUID id = UUID.randomUUID();
         ArrayList<OrderItem> orderItems = new ArrayList<>();
         Order order = new Order(id, customerInfo, orderItems);
@@ -31,7 +31,7 @@ public class Order extends AggregateRoot<UUID> {
         return order;
     }
 
-    public void Add(OrderItem orderItem) {
+    public void add(OrderItem orderItem) {
         this.orderItems.add(orderItem);
         // TODO: raise order item added domain event
     }
