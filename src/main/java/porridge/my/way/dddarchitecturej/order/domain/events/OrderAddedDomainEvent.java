@@ -6,11 +6,11 @@ import java.util.UUID;
 import lombok.Getter;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
-public class OrderCreatedDomainEvent extends DomainEvent {
+public class OrderAddedDomainEvent extends DomainEvent {
     @Getter
     private UUID orderId;
 
-    public OrderCreatedDomainEvent(UUID orderId) {
+    public OrderAddedDomainEvent(UUID orderId) {
         this.orderId = orderId;
     }
 

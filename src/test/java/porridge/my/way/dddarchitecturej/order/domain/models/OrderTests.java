@@ -6,7 +6,8 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
-import porridge.my.way.dddarchitecturej.order.domain.events.orderCreatedDomainEvent;
+import porridge.my.way.dddarchitecturej.order.domain.events.OrderAddedDomainEvent;
+import porridge.my.way.dddarchitecturej.order.domain.events.OrderCreatedDomainEvent;
 
 public class OrderTests {
     @Test
@@ -19,7 +20,7 @@ public class OrderTests {
 
         // Then
         assertThat(order.getCustomerInfo()).isEqualTo(customerInfo);
-        assertThat(order.getDomainEvents()).contains(new orderCreatedDomainEvent(order.getId()));
+        assertThat(order.getDomainEvents()).contains(new OrderCreatedDomainEvent(order.getId()));
     }
 
     @Test
@@ -33,6 +34,7 @@ public class OrderTests {
 
         // Then
         assertThat(order.getOrderItems()).contains(orderItem);
+        assertThat(order.getDomainEvents()).contains(new OrderAddedDomainEvent(order.getId()));
     }
 
     private Order createOrder() {

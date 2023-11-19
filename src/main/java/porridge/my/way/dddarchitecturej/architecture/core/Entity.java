@@ -7,7 +7,7 @@ import lombok.Getter;
 
 public abstract class Entity<TId extends Comparable<TId>> implements Comparable<Entity<TId>> {
     @Getter(AccessLevel.PUBLIC)
-    TId id;
+    protected TId id;
 
     protected Entity() {
     }
