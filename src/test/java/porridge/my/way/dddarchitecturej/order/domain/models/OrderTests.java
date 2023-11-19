@@ -1,4 +1,4 @@
-package porridge.my.way.dddarchitecturej.order.domain;
+package porridge.my.way.dddarchitecturej.order.domain.models;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
