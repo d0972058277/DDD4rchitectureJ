@@ -14,20 +14,6 @@ import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
 public class MediatorTests {
     @Test
-    public void testExecuteNoneCommand() {
-        // Given
-        var pipeline = Mockito.mock(Pipeline.class);
-        var mediator = new Mediator(pipeline);
-        var command = new NoneCommand();
-
-        // When
-        mediator.execute(command);
-
-        // Then
-        Mockito.verify(pipeline, times(1)).send(command);
-    }
-
-    @Test
     public void testExecuteResultCommand() {
         // Given
         var pipeline = Mockito.mock(Pipeline.class);
@@ -60,7 +46,7 @@ public class MediatorTests {
         // Given
         var pipeline = Mockito.mock(Pipeline.class);
         var mediator = new Mediator(pipeline);
-        var domainEvent = new DomainEventForTest();
+        var domainEvent = new ExecutedDomainEvent();
 
         // When
         mediator.publish(domainEvent);
@@ -82,13 +68,10 @@ public class MediatorTests {
         mediator.publish(domainEvents);
 
         // Then
-        ArgumentCaptor<DomainEventForTest> domainEventCaptor = ArgumentCaptor.forClass(DomainEventForTest.class);
+        ArgumentCaptor<ExecutedDomainEvent> domainEventCaptor = ArgumentCaptor.forClass(ExecutedDomainEvent.class);
         Mockito.verify(pipeline, times(1)).send(domainEventCaptor.capture());
         assertThat(aggregate.getDomainEvents()).isEmpty();
     }
-}
-
-class NoneCommand implements INoneCommand {
 }
 
 class ResultCommand implements ICommand<Integer> {
@@ -97,7 +80,7 @@ class ResultCommand implements ICommand<Integer> {
 class ResultQuery implements IQuery<Integer> {
 }
 
-class DomainEventForTest extends DomainEvent {
+class ExecutedDomainEvent extends DomainEvent {
 
     @Override
     protected Iterable<Object> getEqualityComponents() {
@@ -111,6 +94,6 @@ class Aggregate extends AggregateRoot<Integer> {
     }
 
     public void execute() {
-        addDomainEvent(new DomainEventForTest());
+        addDomainEvent(new ExecutedDomainEvent());
     }
 }

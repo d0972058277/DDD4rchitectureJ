@@ -3,7 +3,6 @@ package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 import java.util.List;
 
 import an.awesome.pipelinr.Pipeline;
-import an.awesome.pipelinr.Voidy;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
 public class Mediator implements IMediator {
@@ -12,11 +11,6 @@ public class Mediator implements IMediator {
 
     public Mediator(Pipeline pipeline) {
         this.pipeline = pipeline;
-    }
-
-    @Override
-    public Voidy execute(INoneCommand command) {
-        return pipeline.send(command);
     }
 
     @Override
