@@ -2,9 +2,16 @@ package porridge.my.way.dddarchitecturej.architecture.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
-class SampleDomainEvent implements IDomainEvent {
+class SampleDomainEvent extends DomainEvent {
+
+    @Override
+    protected Iterable<Object> getEqualityComponents() {
+        return List.of();
+    }
 }
 
 class SampleAggregateRoot extends AggregateRoot<Integer> {

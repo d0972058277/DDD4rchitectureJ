@@ -3,12 +3,14 @@ package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import an.awesome.pipelinr.Pipeline;
 import porridge.my.way.dddarchitecturej.architecture.core.AggregateRoot;
-import porridge.my.way.dddarchitecturej.architecture.core.IDomainEvent;
+import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
 public class MediatorTests {
     @Test
@@ -58,7 +60,7 @@ public class MediatorTests {
         // Given
         var pipeline = Mockito.mock(Pipeline.class);
         var mediator = new Mediator(pipeline);
-        var domainEvent = new DomainEvent();
+        var domainEvent = new DomainEventForTest();
 
         // When
         mediator.publish(domainEvent);
@@ -79,7 +81,7 @@ public class MediatorTests {
         mediator.publishAndClearDomainEvents(aggregate);
 
         // Then
-        ArgumentCaptor<DomainEvent> domainEventCaptor = ArgumentCaptor.forClass(DomainEvent.class);
+        ArgumentCaptor<DomainEventForTest> domainEventCaptor = ArgumentCaptor.forClass(DomainEventForTest.class);
         Mockito.verify(pipeline, times(1)).send(domainEventCaptor.capture());
         assertThat(aggregate.getDomainEvents()).isEmpty();
     }
@@ -94,7 +96,12 @@ class ResultCommand implements ICommand<Integer> {
 class ResultQuery implements IQuery<Integer> {
 }
 
-class DomainEvent implements IDomainEvent {
+class DomainEventForTest extends DomainEvent {
+
+    @Override
+    protected Iterable<Object> getEqualityComponents() {
+        return List.of();
+    }
 }
 
 class Aggregate extends AggregateRoot<Integer> {
@@ -103,6 +110,6 @@ class Aggregate extends AggregateRoot<Integer> {
     }
 
     public void execute() {
-        addDomainEvent(new DomainEvent());
+        addDomainEvent(new DomainEventForTest());
     }
 }

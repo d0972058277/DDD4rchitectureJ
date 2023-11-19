@@ -3,7 +3,7 @@ package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 import an.awesome.pipelinr.Pipeline;
 import an.awesome.pipelinr.Voidy;
 import porridge.my.way.dddarchitecturej.architecture.core.IAggregateRoot;
-import porridge.my.way.dddarchitecturej.architecture.core.IDomainEvent;
+import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
 public class Mediator implements IMediator {
 
@@ -29,7 +29,7 @@ public class Mediator implements IMediator {
     }
 
     @Override
-    public void publish(IDomainEvent domainEvent) {
+    public void publish(DomainEvent domainEvent) {
         pipeline.send(domainEvent);
     }
 

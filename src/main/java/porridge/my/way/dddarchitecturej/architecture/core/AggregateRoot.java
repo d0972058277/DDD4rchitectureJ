@@ -13,14 +13,14 @@ public abstract class AggregateRoot<TId extends Comparable<TId>> extends Entity<
         super(id);
     }
 
-    List<IDomainEvent> domainEvents = new ArrayList<>();
+    List<DomainEvent> domainEvents = new ArrayList<>();
 
-    protected void addDomainEvent(IDomainEvent domainEvent) {
+    protected void addDomainEvent(DomainEvent domainEvent) {
         this.domainEvents.add(domainEvent);
     }
 
     @Override
-    public List<IDomainEvent> getDomainEvents() {
+    public List<DomainEvent> getDomainEvents() {
         var domainEvents = new ArrayList<>(this.domainEvents);
         return Collections.unmodifiableList(domainEvents);
     }

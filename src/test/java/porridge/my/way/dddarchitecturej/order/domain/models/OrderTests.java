@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
+import porridge.my.way.dddarchitecturej.order.domain.events.orderCreatedDomainEvent;
+
 public class OrderTests {
     @Test
     public void test_應該能夠成功建立() {
@@ -17,6 +19,7 @@ public class OrderTests {
 
         // Then
         assertThat(order.getCustomerInfo()).isEqualTo(customerInfo);
+        assertThat(order.getDomainEvents()).contains(new orderCreatedDomainEvent(order.getId()));
     }
 
     @Test
