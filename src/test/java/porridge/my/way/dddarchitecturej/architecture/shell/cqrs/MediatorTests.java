@@ -70,15 +70,16 @@ public class MediatorTests {
     }
 
     @Test
-    public void testPublishAggregate() {
+    public void testPublishDomainEvents() {
         // Given
         var pipeline = Mockito.mock(Pipeline.class);
         var mediator = new Mediator(pipeline);
         var aggregate = new Aggregate(1);
         aggregate.execute();
+        var domainEvents = aggregate.popDomainEvents();
 
         // When
-        mediator.publishAndClearDomainEvents(aggregate);
+        mediator.publish(domainEvents);
 
         // Then
         ArgumentCaptor<DomainEventForTest> domainEventCaptor = ArgumentCaptor.forClass(DomainEventForTest.class);

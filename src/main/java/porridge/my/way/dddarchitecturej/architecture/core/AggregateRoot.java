@@ -13,7 +13,7 @@ public abstract class AggregateRoot<TId extends Comparable<TId>> extends Entity<
         super(id);
     }
 
-    List<DomainEvent> domainEvents = new ArrayList<>();
+    protected List<DomainEvent> domainEvents = new ArrayList<>();
 
     protected void addDomainEvent(DomainEvent domainEvent) {
         this.domainEvents.add(domainEvent);
@@ -28,5 +28,12 @@ public abstract class AggregateRoot<TId extends Comparable<TId>> extends Entity<
     @Override
     public void clearDomainEvents() {
         this.domainEvents.clear();
+    }
+
+    @Override
+    public List<DomainEvent> popDomainEvents() {
+        List<DomainEvent> domainEvents = getDomainEvents();
+        clearDomainEvents();
+        return domainEvents;
     }
 }

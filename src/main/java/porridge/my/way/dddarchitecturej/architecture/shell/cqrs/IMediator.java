@@ -1,7 +1,8 @@
 package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 
+import java.util.List;
+
 import an.awesome.pipelinr.Voidy;
-import porridge.my.way.dddarchitecturej.architecture.core.IAggregateRoot;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
 public interface IMediator {
@@ -13,5 +14,5 @@ public interface IMediator {
 
     void publish(DomainEvent domainEvent);
 
-    void publishAndClearDomainEvents(IAggregateRoot aggregateRoot);
+    void publish(List<DomainEvent> domainEvents);
 }

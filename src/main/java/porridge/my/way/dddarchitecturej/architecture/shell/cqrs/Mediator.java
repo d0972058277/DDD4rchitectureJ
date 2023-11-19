@@ -1,8 +1,9 @@
 package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 
+import java.util.List;
+
 import an.awesome.pipelinr.Pipeline;
 import an.awesome.pipelinr.Voidy;
-import porridge.my.way.dddarchitecturej.architecture.core.IAggregateRoot;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
 public class Mediator implements IMediator {
@@ -34,12 +35,9 @@ public class Mediator implements IMediator {
     }
 
     @Override
-    public void publishAndClearDomainEvents(IAggregateRoot aggregateRoot) {
-        var domainEvents = aggregateRoot.getDomainEvents();
-        aggregateRoot.clearDomainEvents();
-
+    public void publish(List<DomainEvent> domainEvents) {
         for (var domainEvent : domainEvents) {
-            pipeline.send(domainEvent);
+            publish(domainEvent);
         }
     }
 }

@@ -48,4 +48,20 @@ public class AggregateRootTests {
         // Then
         assertThat(aggregate.domainEvents.size()).isZero();
     }
+
+    @Test
+    public void testPopDomainEvents() {
+        // Given
+        var domainEvent = new SampleDomainEvent();
+        var aggregate = new SampleAggregateRoot(1);
+        aggregate.addDomainEvent(domainEvent);
+
+        // When
+        var domainEvents = aggregate.popDomainEvents();
+
+        // Then
+        assertThat(domainEvents.size()).isEqualTo(1);
+        assertThat(domainEvents).contains(domainEvent);
+        assertThat(aggregate.domainEvents.size()).isZero();
+    }
 }

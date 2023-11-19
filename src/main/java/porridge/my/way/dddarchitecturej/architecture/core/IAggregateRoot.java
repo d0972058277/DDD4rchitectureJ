@@ -6,4 +6,6 @@ public interface IAggregateRoot {
     List<DomainEvent> getDomainEvents();
 
     void clearDomainEvents();
+
+    List<DomainEvent> popDomainEvents();
 }
