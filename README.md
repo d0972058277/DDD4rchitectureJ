@@ -15,8 +15,11 @@ To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/Pipeli
 假設我們正在開發一個線上商店的訂單系統。在這個系統中，有以下元素：
 
 訂單（Order） - 聚合根（Aggregate Root），它包含多個訂單項目（Order Items）和一個客戶資訊（Customer Information）。
+
 訂單項目（Order Item） - 實體（Entity），它表示購買的單一產品及其數量。
+
 客戶資訊（Customer Information） - 值對象（Value Object），包含客戶的姓名和地址。
+
 設計
 聚合根：訂單（Order）
 
