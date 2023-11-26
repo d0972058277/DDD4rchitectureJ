@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.Getter;
+import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.Entity;
 
 public class OrderItem extends Entity<UUID> {
@@ -27,7 +28,7 @@ public class OrderItem extends Entity<UUID> {
         if (quantity <= 0)
             throw new IllegalArgumentException("Quantity must be positive");
 
-        UUID id = UUID.randomUUID();
+        UUID id = SequentialUUID.generateUUID();
         return new OrderItem(id, productId, price, quantity);
     }
 

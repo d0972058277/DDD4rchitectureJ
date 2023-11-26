@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import lombok.Getter;
+import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.AggregateRoot;
 import porridge.my.way.dddarchitecturej.order.domain.events.OrderAddedDomainEvent;
 import porridge.my.way.dddarchitecturej.order.domain.events.OrderCreatedDomainEvent;
@@ -26,7 +27,7 @@ public class Order extends AggregateRoot<UUID> {
     }
 
     public static Order create(CustomerInfo customerInfo) {
-        UUID id = UUID.randomUUID();
+        UUID id = SequentialUUID.generateUUID();
         ArrayList<OrderItem> orderItems = new ArrayList<>();
         Order order = new Order(id, customerInfo, orderItems);
         order.addDomainEvent(new OrderCreatedDomainEvent(id));
