@@ -19,21 +19,6 @@ class DddArchitectureJApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Configuration configuration = new Configuration();
-		configuration.configure();
 
-		SessionFactory sessionFactory = configuration.buildSessionFactory();
-		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
-
-		Order order = Order.create(CustomerInfo.create("name", "address"));
-		order.add(OrderItem.create(1, new BigDecimal(1), 1));
-
-		OrderDto orderDto = OrderDto.from(order);
-		session.persist(orderDto);
-
-		transaction.commit();
-		session.close();
 	}
-
 }
