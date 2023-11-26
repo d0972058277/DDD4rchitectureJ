@@ -1,17 +1,18 @@
 package porridge.my.way.dddarchitecturej.architecture;
 
+import java.security.SecureRandom;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class SequentialUUID {
+    private static final SecureRandom random = new SecureRandom();
+
     public static UUID generateUUID() {
-        long timestamp = System.currentTimeMillis() * 10000;
-        long randomBits = ThreadLocalRandom.current().nextLong();
-        return new UUID(timestamp, randomBits);
+        long timestamp = System.currentTimeMillis();
+        return new UUID(timestamp, random.nextLong());
     }
 
     public static long extractTimestamp(UUID sequentialUUID) {
-        long timestamp = sequentialUUID.getMostSignificantBits() / 10000;
+        long timestamp = sequentialUUID.getMostSignificantBits();
         return timestamp;
     }
 }
