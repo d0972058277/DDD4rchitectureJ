@@ -20,6 +20,7 @@ import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 
+// todo: command 應該能夠使用整合測試
 @ExtendWith(MockitoExtension.class)
 public class AddOrderItemCommandTests {
     @Mock

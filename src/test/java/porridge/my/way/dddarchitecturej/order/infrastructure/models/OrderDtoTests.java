@@ -13,6 +13,7 @@ import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 
 public class OrderDtoTests {
+    // todo: hibernate 的測試不應該寫在這裡，直接用整合測試
     @Test
     public void test_Hibernate() {
         Configuration configuration = new Configuration();
