@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import jakarta.persistence.EntityManager;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.command.createOrder.CreateOrderCommand;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
@@ -17,6 +18,8 @@ import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 @SpringBootTest
 public class CreateOrderCommandTests {
     @MockBean
+    EntityManager entityManager;
+    @Autowired
     IOrderRepository repository;
     @Autowired
     IMediator mediator;
@@ -30,6 +33,6 @@ public class CreateOrderCommandTests {
         mediator.execute(createOrderCommand);
 
         // Then
-        Mockito.verify(repository, times(1)).add(Mockito.any(Order.class));
+        Mockito.verify(entityManager, times(1)).persist(Mockito.any(Order.class));
     }
 }

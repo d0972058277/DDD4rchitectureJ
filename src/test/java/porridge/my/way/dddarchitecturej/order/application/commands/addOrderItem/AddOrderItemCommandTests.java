@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import jakarta.persistence.EntityManager;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.command.addOrderItem.AddOrderItemCommand;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
@@ -20,6 +21,8 @@ import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 @SpringBootTest
 public class AddOrderItemCommandTests {
     @MockBean
+    EntityManager entityManager;
+    @Autowired
     IOrderRepository repository;
     @Autowired
     IMediator mediator;
