@@ -8,6 +8,15 @@
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
 
+        <!-- 啟用 SQL 語句輸出 -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- 格式化 SQL 語句 -->
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- 啟用 SQL 注釋（可選） -->
+        <property name="hibernate.use_sql_comments">true</property>
+
         <!-- DB schema will be updated if needed -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
