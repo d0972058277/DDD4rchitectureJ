@@ -1,8 +1,9 @@
 package porridge.my.way.dddarchitecturej.order.application.commands.addOrderItem;
 
-import static org.mockito.Mockito.times;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,27 @@ public class AddOrderItemCommandTests {
     @Test
     public void testAddOrderItemCommand() {
         // Given
-        Order order = getOrder();
-        OrderItem orderItem = OrderItem.create(1, new BigDecimal(1), 1);
-        Mockito.when(repository.find(order.getId())).thenReturn(order);
-
-        AddOrderItemCommand addOrderItemCommand = new AddOrderItemCommand(order.getId(), orderItem);
+        UUID orderId = givenAnExistingOrder();
+        OrderItem orderItem = createAnOrderItem();
+        AddOrderItemCommand addOrderItemCommand = new AddOrderItemCommand(orderId, orderItem);
 
         // When
         mediator.execute(addOrderItemCommand);
 
         // Then
-        Mockito.verify(repository, times(1)).find(order.getId());
-        Mockito.verify(repository, times(1)).save(order);
+        Order order = repository.find(orderId);
+        assertThat(order.getOrderItems().contains(orderItem)).isTrue();
+    }
+
+    private OrderItem createAnOrderItem() {
+        OrderItem orderItem = OrderItem.create(1, new BigDecimal(1), 1);
+        return orderItem;
+    }
+
+    private UUID givenAnExistingOrder() {
+        Order order = getOrder();
+        Mockito.when(repository.find(order.getId())).thenReturn(order);
+        return order.getId();
     }
 
     private Order getOrder() {
