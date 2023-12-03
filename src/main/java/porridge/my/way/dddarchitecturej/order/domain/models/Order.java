@@ -53,10 +53,6 @@ public class Order extends AggregateRoot<UUID> {
         return order;
     }
 
-    public static Order restore(UUID id, CustomerInfo customerInfo, List<OrderItem> orderItems) {
-        return new Order(id, customerInfo, orderItems);
-    }
-
     public void add(OrderItem orderItem) {
         orderItems.add(orderItem);
         addDomainEvent(new OrderAddedDomainEvent(id));
