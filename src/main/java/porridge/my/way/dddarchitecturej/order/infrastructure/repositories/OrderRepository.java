@@ -5,13 +5,11 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 
 @Repository
 public class OrderRepository implements IOrderRepository {
-    @PersistenceContext
     EntityManager entityManager;
 
     public OrderRepository(EntityManager entityManager) {
