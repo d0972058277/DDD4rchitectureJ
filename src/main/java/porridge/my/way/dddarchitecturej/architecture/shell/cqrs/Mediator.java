@@ -2,9 +2,12 @@ package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import an.awesome.pipelinr.Pipeline;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
+@Component
 public class Mediator implements IMediator {
 
     private Pipeline pipeline;
