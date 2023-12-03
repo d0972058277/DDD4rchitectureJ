@@ -11,7 +11,7 @@
         <!-- DB schema will be updated if needed -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="porridge.my.way.dddarchitecturej.order.infrastructure.models.OrderDto" />
-        <mapping class="porridge.my.way.dddarchitecturej.order.infrastructure.models.OrderItemDto" />
+        <mapping class="porridge.my.way.dddarchitecturej.order.domain.models.Order" />
+        <mapping class="porridge.my.way.dddarchitecturej.order.domain.models.OrderItem" />
     </session-factory>
 </hibernate-configuration>
