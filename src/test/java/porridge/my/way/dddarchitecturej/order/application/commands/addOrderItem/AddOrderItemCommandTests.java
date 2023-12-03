@@ -6,7 +6,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.command.addOrderItem.AddOrderItemCommand;
@@ -17,13 +20,16 @@ import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 
+@ExtendWith(MockitoExtension.class)
 public class AddOrderItemCommandTests {
+    @Mock
+    IOrderRepository repository;
+    @Mock
+    IMediator mediator;
+
     @Test
     public void testAddOrderItemCommand() {
         // Given
-        IOrderRepository repository = Mockito.mock(IOrderRepository.class);
-        IMediator mediator = Mockito.mock(IMediator.class);
-
         Order order = getOrder();
         OrderItem orderItem = OrderItem.create(1, new BigDecimal(1), 1);
         Mockito.when(repository.find(order.getId())).thenReturn(order);
