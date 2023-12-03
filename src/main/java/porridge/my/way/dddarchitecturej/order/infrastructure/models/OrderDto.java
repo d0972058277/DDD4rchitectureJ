@@ -12,7 +12,9 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
+import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 
 @Entity
 @Table(name = "Orders")
@@ -42,5 +44,10 @@ public class OrderDto {
         orderDto.setOrderItems(order.getOrderItems().stream()
                 .map(orderItem -> OrderItemDto.from(orderItem)).toList());
         return orderDto;
+    }
+
+    public Order toEntity() {
+        return Order.restore(id, CustomerInfo.create(name, address), orderItems.stream()
+                .map(i -> OrderItem.create(i.getProductId(), i.getPrice(), i.getQuantity())).toList());
     }
 }

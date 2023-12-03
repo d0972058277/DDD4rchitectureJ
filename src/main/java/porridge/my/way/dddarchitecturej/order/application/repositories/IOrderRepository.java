@@ -8,7 +8,7 @@ import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 public interface IOrderRepository extends IRepository {
     Order find(UUID orderId);
 
-    void add(Order any);
+    void add(Order order);
 
     void save(Order order);
 }
