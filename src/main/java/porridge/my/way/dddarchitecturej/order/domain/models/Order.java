@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
