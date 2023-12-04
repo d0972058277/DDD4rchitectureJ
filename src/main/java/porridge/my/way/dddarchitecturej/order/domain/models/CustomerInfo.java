@@ -2,13 +2,11 @@ package porridge.my.way.dddarchitecturej.order.domain.models;
 
 import java.util.List;
 
-import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import porridge.my.way.dddarchitecturej.architecture.core.ValueObject;
 
-@Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CustomerInfo extends ValueObject {
     @Getter

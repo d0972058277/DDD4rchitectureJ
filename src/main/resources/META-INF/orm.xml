@@ -1,0 +1,50 @@
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+    version="3.0">
+
+    <mapped-superclass class="porridge.my.way.dddarchitecturej.architecture.core.Entity">
+        <attributes>
+            <id name="id">
+                <column nullable="false" />
+            </id>
+        </attributes>
+    </mapped-superclass>
+
+    <!-- Order Entity -->
+    <entity name="Order" class="porridge.my.way.dddarchitecturej.order.domain.models.Order">
+        <table name="orders" />
+        <attributes>
+            <embedded name="customerInfo" access="FIELD">
+            </embedded>
+            <one-to-many name="orderItems"
+                target-entity="porridge.my.way.dddarchitecturej.order.domain.models.OrderItem"
+                access="FIELD" orphan-removal="true">
+                <cascade>
+                    <cascade-all />
+                    <cascade-remove />
+                </cascade>
+                <join-column name="order_id" nullable="false" />
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <embeddable class="porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo"
+        access="FIELD">
+        <attributes>
+            <basic name="name" />
+            <basic name="address" />
+        </attributes>
+    </embeddable>
+
+    <!-- OrderItem Entity -->
+    <entity name="OrderItem" class="porridge.my.way.dddarchitecturej.order.domain.models.OrderItem">
+        <table name="order_items" />
+        <attributes>
+            <basic name="productId" access="FIELD" />
+            <basic name="price" access="FIELD" />
+            <basic name="quantity" access="FIELD" />
+            <transient name="totalPrice" />
+        </attributes>
+    </entity>
+</entity-mappings>

@@ -8,31 +8,24 @@ import java.util.UUID;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.AggregateRoot;
 import porridge.my.way.dddarchitecturej.order.domain.events.OrderAddedDomainEvent;
 import porridge.my.way.dddarchitecturej.order.domain.events.OrderCreatedDomainEvent;
 
-@Entity
-@Table(name = "orders")
+@Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends AggregateRoot<UUID> {
     @Getter
-    @Embedded
     private CustomerInfo customerInfo;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    // todo: 原生 JPA 好像不支援 one to many 中的 on delete cascade
+    // 考慮使用 *.hbm.xml 直接透過 hibernate 進行 entity 配置
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "order_id", nullable = false)
     private List<OrderItem> orderItems;
 
     public List<OrderItem> getOrderItems() {

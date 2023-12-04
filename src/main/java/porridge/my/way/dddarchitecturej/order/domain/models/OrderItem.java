@@ -3,15 +3,14 @@ package porridge.my.way.dddarchitecturej.order.domain.models;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.Entity;
 
-@jakarta.persistence.Entity
-@Table(name = "order_items")
+@Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends Entity<UUID> {
     @Getter

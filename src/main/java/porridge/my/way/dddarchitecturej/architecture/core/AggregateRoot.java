@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AggregateRoot<TId extends Comparable<TId>> extends Entity<TId> implements IAggregateRoot {
     public AggregateRoot(TId id) {
         super(id);
     }
 
-    @Transient
     protected List<DomainEvent> domainEvents = new ArrayList<>();
 
     protected void addDomainEvent(DomainEvent domainEvent) {

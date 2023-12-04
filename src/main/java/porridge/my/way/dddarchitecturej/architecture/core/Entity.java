@@ -2,17 +2,15 @@ package porridge.my.way.dddarchitecturej.architecture.core;
 
 import java.util.Objects;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Entity<TId extends Comparable<TId>> implements Comparable<Entity<TId>> {
-    @Id
     @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PRIVATE)
     protected TId id;
 
     protected Entity(TId id) {
