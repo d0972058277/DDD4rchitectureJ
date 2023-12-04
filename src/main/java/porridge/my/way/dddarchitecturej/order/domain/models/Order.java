@@ -22,10 +22,6 @@ import porridge.my.way.dddarchitecturej.order.domain.events.OrderCreatedDomainEv
 public class Order extends AggregateRoot<UUID> {
     @Getter
     private CustomerInfo customerInfo;
-
-    // todo: 原生 JPA 好像不支援 one to many 中的 on delete cascade
-    // 考慮使用 *.hbm.xml 直接透過 hibernate 進行 entity 配置
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderItem> orderItems;
 
     public List<OrderItem> getOrderItems() {

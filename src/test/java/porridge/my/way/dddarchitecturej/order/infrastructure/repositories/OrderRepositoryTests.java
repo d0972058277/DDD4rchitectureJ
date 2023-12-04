@@ -26,16 +26,17 @@ public class OrderRepositoryTests {
     public void test_Hibernate() {
         Order order = Order.create(CustomerInfo.create("name", "address"));
         order.add(OrderItem.create(1, new BigDecimal(1), 1));
-
         orderRepository.add(order);
-
         Order orderSaved = orderRepository.find(order.getId());
         assertThat(orderSaved).isEqualTo(order);
 
         orderSaved.add(OrderItem.create(1, new BigDecimal(1), 1));
         orderRepository.save(orderSaved);
-
         Order orderAdjusted = orderRepository.find(order.getId());
         assertThat(orderAdjusted.getOrderItems().size()).isEqualTo(2);
+
+        orderRepository.remove(orderSaved);
+        Order orderDeleted = orderRepository.find(order.getId());
+        assertThat(orderDeleted).isNull();
     }
 }

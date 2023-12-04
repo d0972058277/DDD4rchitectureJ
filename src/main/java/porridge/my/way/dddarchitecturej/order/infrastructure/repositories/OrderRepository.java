@@ -31,4 +31,9 @@ public class OrderRepository implements IOrderRepository {
         entityManager.merge(order);
     }
 
+    @Override
+    public void remove(Order order) {
+        entityManager.remove(order);
+    }
+
 }

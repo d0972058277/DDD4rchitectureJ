@@ -22,7 +22,6 @@
                 access="FIELD" orphan-removal="true">
                 <cascade>
                     <cascade-all />
-                    <cascade-remove />
                 </cascade>
                 <join-column name="order_id" nullable="false" />
             </one-to-many>

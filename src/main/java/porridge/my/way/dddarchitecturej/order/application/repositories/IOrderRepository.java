@@ -11,4 +11,6 @@ public interface IOrderRepository extends IRepository {
     void add(Order order);
 
     void save(Order order);
+
+    void remove(Order order);
 }
