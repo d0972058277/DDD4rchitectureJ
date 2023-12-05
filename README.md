@@ -48,6 +48,12 @@ liquibase --changeLogFile=src/main/resources/db/changelog/changelog-001.xml diff
 
 ---
 
+extensions method 參考
+
+[manifold-ext](https://github.com/manifold-systems/manifold/blob/master/manifold-deps-parent/manifold-ext/README.md)
+
+---
+
 案例描述
 
 假設我們正在開發一個線上商店的訂單系統。在這個系統中，有以下元素：
