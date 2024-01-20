@@ -1,7 +1,6 @@
 package porridge.my.way.dddarchitecturej.order.controller;
 
 import an.awesome.pipelinr.Voidy;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +21,6 @@ public class OrderController {
         this.mediator = mediator;
     }
 
-    // TODO: 將 Transactional 搬至 Mediator 的 Middleware 當中
-    @Transactional
     @PostMapping("/order")
     public CreateOrderResponse create(@RequestBody CreateOrderRequest request) {
         ICommand<UUID> command = request.toCommand();
@@ -31,7 +28,6 @@ public class OrderController {
         return new CreateOrderResponse(executed);
     }
 
-    @Transactional
     @PostMapping("/order/{orderId}/item")
     public void addItem(@PathVariable UUID orderId, @RequestBody AddOrderItemRequest request) {
         ICommand<Voidy> command = request.toCommand(orderId);
