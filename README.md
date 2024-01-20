@@ -7,7 +7,7 @@ To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/Pipeli
 
 由於對於 Java 的非同步還並不熟悉，IMediator 還沒提供非同步的方法
 
-- 加入 Exception Handle 的方式
+- 加入一個 Query 的例子
 
 ---
 
