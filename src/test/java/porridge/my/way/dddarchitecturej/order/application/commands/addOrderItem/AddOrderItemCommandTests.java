@@ -1,6 +1,7 @@
 package porridge.my.way.dddarchitecturej.order.application.commands.addOrderItem;
 
 import jakarta.persistence.EntityManager;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class AddOrderItemCommandTests {
         assertThat(order.getOrderItems().contains(orderItem)).isTrue();
     }
 
+    @SneakyThrows
     private OrderItem createAnOrderItem() {
         OrderItem orderItem = OrderItem.create(1, new BigDecimal(1), 1);
         return orderItem;
@@ -52,6 +54,7 @@ public class AddOrderItemCommandTests {
         return order.getId();
     }
 
+    @SneakyThrows
     private Order getOrder() {
         Order order = Order.create(CustomerInfo.create("name", "address"));
         order.clearDomainEvents();

@@ -1,14 +1,21 @@
 package porridge.my.way.dddarchitecturej.order.domain.models;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
+import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 
 import java.math.BigDecimal;
 import java.util.function.Supplier;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OrderItemTests {
+    @SneakyThrows
+    private static OrderItem createOrderItem(int productId, BigDecimal price, int quantity) {
+        return OrderItem.create(productId, price, quantity);
+    }
+
     @Test
     public void test_應該能夠成功建立() {
         // Given
@@ -17,7 +24,7 @@ public class OrderItemTests {
         int quantity = 1;
 
         // When
-        OrderItem orderItem = OrderItem.create(productId, price, quantity);
+        OrderItem orderItem = createOrderItem(productId, price, quantity);
 
         // Then
         assertThat(orderItem.getProductId()).isEqualTo(productId);
@@ -33,10 +40,10 @@ public class OrderItemTests {
         int quantity = 1;
 
         // When
-        Supplier<OrderItem> supplier = () -> OrderItem.create(productId, price, quantity);
+        Supplier<OrderItem> supplier = () -> createOrderItem(productId, price, quantity);
 
         // Then
-        assertThatThrownBy(() -> supplier.get()).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> supplier.get()).isInstanceOf(IllegalArgumentDomainException.class);
     }
 
     @Test
@@ -47,10 +54,10 @@ public class OrderItemTests {
         int quantity = 0;
 
         // When
-        Supplier<OrderItem> supplier = () -> OrderItem.create(productId, price, quantity);
+        Supplier<OrderItem> supplier = () -> createOrderItem(productId, price, quantity);
 
         // Then
-        assertThatThrownBy(() -> supplier.get()).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> supplier.get()).isInstanceOf(IllegalArgumentDomainException.class);
     }
 
     @Test
@@ -59,7 +66,7 @@ public class OrderItemTests {
         int productId = 1;
         BigDecimal price = new BigDecimal(1);
         int quantity = 1;
-        OrderItem orderItem = OrderItem.create(productId, price, quantity);
+        OrderItem orderItem = createOrderItem(productId, price, quantity);
 
         // When
         BigDecimal totalPrice = orderItem.getTotalPrice();

@@ -14,19 +14,17 @@ public class UnitOfWorkMiddleware implements Command.Middleware {
 
     @Override
     public <R, C extends Command<R>> R invoke(C command, Next<R> next) {
-        if (command instanceof ICommand<?>) {
+        if (command instanceof ICommand<?>)
             return handleCommand(command, next);
-        } else {
+        else
             return next.invoke();
-        }
     }
 
     private <R, C extends Command<R>> R handleCommand(C command, Next<R> next) {
-        if (unitOfWork.hasActiveTransaction()) {
+        if (unitOfWork.hasActiveTransaction())
             return ContinueTransaction(command, next);
-        } else {
+        else
             return BeginTransaction(command, next);
-        }
     }
 
     public <R, C extends Command<R>> R BeginTransaction(C command, Next<R> next) {

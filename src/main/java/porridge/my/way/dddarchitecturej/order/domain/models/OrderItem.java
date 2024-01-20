@@ -1,23 +1,22 @@
 package porridge.my.way.dddarchitecturej.order.domain.models;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.Entity;
+import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
+@Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends Entity<UUID> {
-    @Getter
     private int productId;
-    @Getter
     private BigDecimal price;
-    @Getter
     private int quantity;
 
     private OrderItem(UUID id, int productId, BigDecimal price, int quantity) {
@@ -27,11 +26,11 @@ public class OrderItem extends Entity<UUID> {
         this.quantity = quantity;
     }
 
-    public static OrderItem create(int productId, BigDecimal price, int quantity) {
+    public static OrderItem create(int productId, BigDecimal price, int quantity) throws IllegalArgumentDomainException {
         if (price.compareTo(BigDecimal.ZERO) <= 0)
-            throw new IllegalArgumentException("Price must be positive");
+            throw new IllegalArgumentDomainException("Price must be positive");
         if (quantity <= 0)
-            throw new IllegalArgumentException("Quantity must be positive");
+            throw new IllegalArgumentDomainException("Quantity must be positive");
 
         UUID id = SequentialUUID.generateUUID();
         return new OrderItem(id, productId, price, quantity);

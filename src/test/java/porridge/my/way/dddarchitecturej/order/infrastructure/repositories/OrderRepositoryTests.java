@@ -1,25 +1,26 @@
 package porridge.my.way.dddarchitecturej.order.infrastructure.repositories;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.math.BigDecimal;
-
+import jakarta.transaction.Transactional;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
-
-import jakarta.transaction.Transactional;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
+
+import java.math.BigDecimal;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class OrderRepositoryTests {
     @Autowired
     private IOrderRepository orderRepository;
 
+    @SneakyThrows
     @Test
     @Transactional
     @Commit
