@@ -1,11 +1,10 @@
 package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import an.awesome.pipelinr.Pipeline;
+import org.springframework.stereotype.Component;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
+
+import java.util.List;
 
 @Component
 public class Mediator implements IMediator {
@@ -17,12 +16,12 @@ public class Mediator implements IMediator {
     }
 
     @Override
-    public <TResult> TResult execute(ICommand<TResult> command) {
+    public <TResult> TResult send(ICommand<TResult> command) {
         return pipeline.send(command);
     }
 
     @Override
-    public <TResult> TResult fetch(IQuery<TResult> query) {
+    public <TResult> TResult send(IQuery<TResult> query) {
         return pipeline.send(query);
     }
 

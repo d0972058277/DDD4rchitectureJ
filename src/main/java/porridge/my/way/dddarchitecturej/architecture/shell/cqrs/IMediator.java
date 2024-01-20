@@ -1,13 +1,13 @@
 package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 
-import java.util.List;
-
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
 
-public interface IMediator {
-    <TResult> TResult execute(ICommand<TResult> command);
+import java.util.List;
 
-    <TResult> TResult fetch(IQuery<TResult> query);
+public interface IMediator {
+    <TResult> TResult send(ICommand<TResult> command);
+
+    <TResult> TResult send(IQuery<TResult> query);
 
     void publish(DomainEvent domainEvent);
 

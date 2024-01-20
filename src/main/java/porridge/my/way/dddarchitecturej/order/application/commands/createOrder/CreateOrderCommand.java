@@ -1,4 +1,4 @@
-package porridge.my.way.dddarchitecturej.order.application.command.createOrder;
+package porridge.my.way.dddarchitecturej.order.application.commands.createOrder;
 
 import java.util.UUID;
 

@@ -1,16 +1,16 @@
 package porridge.my.way.dddarchitecturej.architecture.shell.cqrs;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-
-import java.util.List;
-
+import an.awesome.pipelinr.Pipeline;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import an.awesome.pipelinr.Pipeline;
 import porridge.my.way.dddarchitecturej.architecture.core.AggregateRoot;
 import porridge.my.way.dddarchitecturej.architecture.core.DomainEvent;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
 
 public class MediatorTests {
     @Test
@@ -21,7 +21,7 @@ public class MediatorTests {
         var command = new ResultCommand();
 
         // When
-        mediator.execute(command);
+        mediator.send(command);
 
         // Then
         Mockito.verify(pipeline, times(1)).send(command);
@@ -35,7 +35,7 @@ public class MediatorTests {
         var query = new ResultQuery();
 
         // When
-        mediator.fetch(query);
+        mediator.send(query);
 
         // Then
         Mockito.verify(pipeline, times(1)).send(query);

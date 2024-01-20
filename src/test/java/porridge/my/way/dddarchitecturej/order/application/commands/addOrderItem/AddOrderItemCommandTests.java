@@ -1,22 +1,21 @@
 package porridge.my.way.dddarchitecturej.order.application.commands.addOrderItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import java.math.BigDecimal;
-import java.util.UUID;
-
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import jakarta.persistence.EntityManager;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
-import porridge.my.way.dddarchitecturej.order.application.command.addOrderItem.AddOrderItemCommand;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class AddOrderItemCommandTests {
@@ -35,7 +34,7 @@ public class AddOrderItemCommandTests {
         AddOrderItemCommand addOrderItemCommand = new AddOrderItemCommand(orderId, orderItem);
 
         // When
-        mediator.execute(addOrderItemCommand);
+        mediator.send(addOrderItemCommand);
 
         // Then
         Order order = repository.find(orderId);
