@@ -7,7 +7,13 @@ To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/Pipeli
 
 由於對於 Java 的非同步還並不熟悉，IMediator 還沒提供非同步的方法
 
-- 加入一個 Query 的例子
+- 加入 query 的例子
+- 加入 validation，使 request 傳入時即可驗證 value object 的 domain rule
+- 加入 result pattern
+- 加入 specification pattern
+- 加入 outbox pattern
+- 加入 rabbitmq 的使用
+- 加入 auth
 
 ---
 

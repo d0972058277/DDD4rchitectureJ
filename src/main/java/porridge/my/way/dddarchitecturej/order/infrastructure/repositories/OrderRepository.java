@@ -1,16 +1,15 @@
 package porridge.my.way.dddarchitecturej.order.infrastructure.repositories;
 
-import java.util.UUID;
-
-import org.springframework.stereotype.Repository;
-
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 
+import java.util.UUID;
+
 @Repository
 public class OrderRepository implements IOrderRepository {
-    EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public OrderRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
