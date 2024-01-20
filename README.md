@@ -1,12 +1,14 @@
 Then..
 
-To complete `DDD Template` by reference [DDD-TW java-ddd-commons](https://github.com/ddd-tw/java-ddd-commons/tree/master)
+To complete `DDD Template` by
+reference [DDD-TW java-ddd-commons](https://github.com/ddd-tw/java-ddd-commons/tree/master)
 
 To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/PipelinR#alternatives)
 
 由於對於 Java 的非同步還並不熟悉，IMediator 還沒提供非同步的方法
 
-- 加入 controller 層級
+- 加入 Exception Handle 的方式
+- 將 Transaction 放置於 Mediator 中的 Middleware
 
 ---
 
@@ -17,7 +19,9 @@ To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/Pipeli
 [Spring boot liquibase. Execute DIFF between entities and database](https://stackoverflow.com/questions/60991196/spring-boot-liquibase-execute-diff-between-entities-and-database)
 
 步驟 1：設定 Liquibase
-首先，確保你的專案中已經引入了 Liquibase 依賴。這可以通過 Maven 或 Gradle 來完成。例如，使用 Maven，你可以在 pom.xml 文件中添加如下依賴：
+首先，確保你的專案中已經引入了 Liquibase 依賴。這可以通過 Maven 或 Gradle 來完成。例如，使用 Maven，你可以在 pom.xml
+文件中添加如下依賴：
+
 ```
 <dependency>
     <groupId>org.liquibase</groupId>
@@ -29,6 +33,7 @@ To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/Pipeli
 
 步驟 2：設定資料庫連接
 在 src/main/resources 目錄下建立一個 liquibase.properties 文件，並配置你的資料庫連接資訊：
+
 ```
 driver: com.mysql.cj.jdbc.Driver
 url: jdbc:mysql://[資料庫地址]/[資料庫名稱]
@@ -39,6 +44,7 @@ changeLogFile: src/main/resources/db/changelog/db.changelog-master.xml
 
 步驟 3：生成遷移腳本
 使用 Liquibase 的 diff 命令來比較現有資料庫與 JPA 實體之間的差異，並生成遷移腳本。這可以通過命令行來執行。例如：
+
 ```
 liquibase --changeLogFile=src/main/resources/db/changelog/changelog-001.xml diff
 ```
