@@ -4,13 +4,14 @@ import java.util.Objects;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Entity<TId extends Comparable<TId>> implements Comparable<Entity<TId>> {
     @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PRIVATE)
     protected TId id;
-
-    protected Entity() {
-    }
 
     protected Entity(TId id) {
         this.id = id;

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AggregateRoot<TId extends Comparable<TId>> extends Entity<TId> implements IAggregateRoot {
-    protected AggregateRoot() {
-        super();
-    }
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class AggregateRoot<TId extends Comparable<TId>> extends Entity<TId> implements IAggregateRoot {
     public AggregateRoot(TId id) {
         super(id);
     }

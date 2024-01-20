@@ -5,11 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.AggregateRoot;
 import porridge.my.way.dddarchitecturej.order.domain.events.OrderAddedDomainEvent;
 import porridge.my.way.dddarchitecturej.order.domain.events.OrderCreatedDomainEvent;
 
+@Setter(AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends AggregateRoot<UUID> {
     @Getter
     private CustomerInfo customerInfo;
@@ -26,7 +32,7 @@ public class Order extends AggregateRoot<UUID> {
     }
 
     public static Order create(CustomerInfo customerInfo) {
-        UUID id = UUID.randomUUID();
+        UUID id = SequentialUUID.generateUUID();
         ArrayList<OrderItem> orderItems = new ArrayList<>();
         Order order = new Order(id, customerInfo, orderItems);
         order.addDomainEvent(new OrderCreatedDomainEvent(id));

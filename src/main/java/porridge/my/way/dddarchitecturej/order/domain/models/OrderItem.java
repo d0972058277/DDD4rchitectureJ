@@ -3,9 +3,15 @@ package porridge.my.way.dddarchitecturej.order.domain.models;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.Entity;
 
+@Setter(AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends Entity<UUID> {
     @Getter
     private int productId;
@@ -27,7 +33,7 @@ public class OrderItem extends Entity<UUID> {
         if (quantity <= 0)
             throw new IllegalArgumentException("Quantity must be positive");
 
-        UUID id = UUID.randomUUID();
+        UUID id = SequentialUUID.generateUUID();
         return new OrderItem(id, productId, price, quantity);
     }
 
