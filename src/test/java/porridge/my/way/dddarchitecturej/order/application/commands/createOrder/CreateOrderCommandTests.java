@@ -10,7 +10,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import jakarta.persistence.EntityManager;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
-import porridge.my.way.dddarchitecturej.order.application.command.createOrder.CreateOrderCommand;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;

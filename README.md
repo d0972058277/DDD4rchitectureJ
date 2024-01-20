@@ -6,7 +6,6 @@ To implement `Mediator` by reference [PipelinR](https://github.com/sizovs/Pipeli
 
 由於對於 Java 的非同步還並不熟悉，IMediator 還沒提供非同步的方法
 
-- 加入 infrastructure 層級
 - 加入 controller 層級
 
 ---

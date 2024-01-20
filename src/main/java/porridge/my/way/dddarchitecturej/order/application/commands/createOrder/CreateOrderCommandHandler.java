@@ -1,29 +1,29 @@
-package porridge.my.way.dddarchitecturej.order.application.command.addOrderItem;
+package porridge.my.way.dddarchitecturej.order.application.commands.createOrder;
+
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import an.awesome.pipelinr.Voidy;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.ICommandHandler;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 
 @Component
-public class AddOrderItemCommandHandler implements ICommandHandler<AddOrderItemCommand, Voidy> {
+public class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCommand, UUID> {
     private IOrderRepository repository;
     private IMediator mediator;
 
-    public AddOrderItemCommandHandler(IOrderRepository repository, IMediator mediator) {
+    public CreateOrderCommandHandler(IOrderRepository repository, IMediator mediator) {
         this.repository = repository;
         this.mediator = mediator;
     }
 
     @Override
-    public Voidy handle(AddOrderItemCommand command) {
-        Order order = repository.find(command.getOrderId());
-        order.add(command.getOrderItem());
-        repository.save(order);
+    public UUID handle(CreateOrderCommand command) {
+        var order = Order.create(command.getCustomerInfo());
+        repository.add(order);
         mediator.publish(order.popDomainEvents());
-        return new Voidy();
+        return order.getId();
     }
 }
