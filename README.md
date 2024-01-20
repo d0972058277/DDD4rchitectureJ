@@ -46,11 +46,6 @@ liquibase --changeLogFile=src/main/resources/db/changelog/changelog-001.xml diff
 
 這條命令會生成一個名為 changelog-001.xml 的檔案，其中包含了現有資料庫與你的 JPA 實體之間的差異。
 
----
-
-extensions method 參考
-
-[manifold-ext](https://github.com/manifold-systems/manifold/blob/master/manifold-deps-parent/manifold-ext/README.md)
 
 ---
 
