@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
@@ -23,7 +24,7 @@ public class CreateOrderCommandTests {
     IMediator mediator;
 
     @Test
-    public void testCreateOrderCommand() {
+    public void testCreateOrderCommand() throws IllegalArgumentDomainException {
         // Given
         CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create("name", "address"));
 

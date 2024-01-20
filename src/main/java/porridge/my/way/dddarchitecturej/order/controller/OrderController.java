@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.ICommand;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.controller.models.AddOrderItemRequest;
@@ -22,14 +23,14 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public CreateOrderResponse create(@RequestBody CreateOrderRequest request) {
+    public CreateOrderResponse create(@RequestBody CreateOrderRequest request) throws IllegalArgumentDomainException {
         ICommand<UUID> command = request.toCommand();
         UUID executed = mediator.send(command);
         return new CreateOrderResponse(executed);
     }
 
     @PostMapping("/order/{orderId}/item")
-    public void addItem(@PathVariable UUID orderId, @RequestBody AddOrderItemRequest request) {
+    public void addItem(@PathVariable UUID orderId, @RequestBody AddOrderItemRequest request) throws IllegalArgumentDomainException {
         ICommand<Voidy> command = request.toCommand(orderId);
         mediator.send(command);
     }
