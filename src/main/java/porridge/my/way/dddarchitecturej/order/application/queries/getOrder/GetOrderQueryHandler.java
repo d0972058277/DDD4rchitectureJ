@@ -15,7 +15,7 @@ public class GetOrderQueryHandler implements IQueryHandler<GetOrderQuery, GetOrd
 
     @Override
     public GetOrderOutcome handle(GetOrderQuery query) {
-        String sql = "SELECT * FROM DddArchitectureJ.orders WHERE orders.id = ?;";
+        String sql = "SELECT * FROM orders WHERE orders.id = ?;";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(GetOrderOutcome.class), query.getOrderId().toString());
     }
 }
