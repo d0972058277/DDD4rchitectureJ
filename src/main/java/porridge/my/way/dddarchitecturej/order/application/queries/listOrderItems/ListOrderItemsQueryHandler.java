@@ -17,7 +17,7 @@ public class ListOrderItemsQueryHandler implements IQueryHandler<ListOrderItemsQ
 
     @Override
     public List<ListOrderItemsOutcome> handle(ListOrderItemsQuery query) {
-        String sql = "SELECT * FROM DddArchitectureJ.order_items WHERE order_items.order_id = ?;";
+        String sql = "SELECT * FROM order_items WHERE order_items.order_id = ?;";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ListOrderItemsOutcome.class), query.getOrderId().toString());
     }
 }
