@@ -5,6 +5,7 @@
 
 ### TODO:
 - 加入 Validation，使 Request 傳入時即可驗證 Value Object 的 Domain Rule
+- 加入 Inbox Pattern
 - 加入 Outbox Pattern
 - 加入 RabbitMq 的使用
 - 加入 Authorization 與 Authentication
