@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
+@AddOrderItemRequestConstraint
 public class AddOrderItemRequest {
     private final int productId;
     private final BigDecimal price;
@@ -19,4 +20,5 @@ public class AddOrderItemRequest {
     public ICommand<Voidy> toCommand(UUID orderId) throws IllegalArgumentDomainException {
         return new AddOrderItemCommand(orderId, OrderItem.create(productId, price, quantity));
     }
+
 }

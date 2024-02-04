@@ -9,6 +9,7 @@ import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import java.util.UUID;
 
 @Data
+@CreateOrderRequestConstraint
 public class CreateOrderRequest {
     public final String name;
     public final String address;

@@ -1,18 +1,25 @@
 ## Reference:
+
 [PipelinR](https://github.com/sizovs/PipelinR#alternatives)
 
 [DDD-TW java-ddd-commons](https://github.com/ddd-tw/java-ddd-commons/tree/master)
 
 ### TODO:
-- 加入 Validation，使 Request 傳入時即可驗證 Value Object 的 Domain Rule
+
 - 加入 Inbox Pattern
 - 加入 Outbox Pattern
 - 加入 RabbitMq 的使用
 - 加入 Authorization 與 Authentication
 
 ### Pending:
+
 - 加入 Result Pattern
 - 加入 Specification Pattern
+
+### Issue:
+
+- 加入 Validation，使 Request 傳入時即可驗證 Value Object 的 Domain Rule
+    - 有實作，但不知為何 ConstraintValidator 不能使用
 
 ---
 
@@ -28,7 +35,9 @@
     - 值對象（Value Object），包含客戶的姓名和地址。
 
 ---
+
 ### NOTE:
+
 使用 Liquibase 進行 migrations 參考：
 
 [Liquibase-Hibernate](https://github.com/liquibase/liquibase-hibernate)
