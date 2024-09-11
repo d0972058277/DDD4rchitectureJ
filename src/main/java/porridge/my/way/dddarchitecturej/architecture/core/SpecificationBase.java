@@ -2,10 +2,11 @@ package porridge.my.way.dddarchitecturej.architecture.core;
 
 import io.vavr.control.Try;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SpecificationBase<T> {
-    private List<SpecificationRule<T>> specificationRules;
+    private volatile List<SpecificationRule<T>> specificationRules;
 
     protected abstract List<SpecificationRule<T>> getSpecificationRules();
 
@@ -20,7 +21,13 @@ public abstract class SpecificationBase<T> {
     }
 
     public List<SpecificationRule<T>> getRules() {
-        if (specificationRules == null) specificationRules = getSpecificationRules().stream().toList();
+        if (specificationRules == null) {
+            synchronized (this) {
+                if (specificationRules == null) {
+                    specificationRules = new ArrayList<>(getSpecificationRules());
+                }
+            }
+        }
         return specificationRules;
     }
 }
