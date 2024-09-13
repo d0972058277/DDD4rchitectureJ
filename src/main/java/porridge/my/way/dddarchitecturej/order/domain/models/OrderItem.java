@@ -16,19 +16,17 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends Entity<UUID> {
     private int productId;
-    private BigDecimal price;
+    private Price price;
     private int quantity;
 
-    private OrderItem(UUID id, int productId, BigDecimal price, int quantity) {
+    private OrderItem(UUID id, int productId, Price price, int quantity) {
         super(id);
         this.productId = productId;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public static OrderItem create(int productId, BigDecimal price, int quantity) throws IllegalArgumentDomainException {
-        if (price.compareTo(BigDecimal.ZERO) <= 0)
-            throw new IllegalArgumentDomainException("Price must be positive");
+    public static OrderItem create(int productId, Price price, int quantity) throws IllegalArgumentDomainException {
         if (quantity <= 0)
             throw new IllegalArgumentDomainException("Quantity must be positive");
 
@@ -37,6 +35,6 @@ public class OrderItem extends Entity<UUID> {
     }
 
     public BigDecimal getTotalPrice() {
-        return price.multiply(BigDecimal.valueOf(quantity));
+        return price.getValue().multiply(BigDecimal.valueOf(quantity));
     }
 }

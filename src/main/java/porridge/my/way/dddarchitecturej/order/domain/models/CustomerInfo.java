@@ -39,7 +39,7 @@ public class CustomerInfo extends ValueObject {
         private final ISelector<T, String> addressSelector;
 
         public static <T> Specification<T> create(ISelector<T, String> nameSelector, ISelector<T, String> addressSelector) {
-            return new Specification<T>(nameSelector, addressSelector);
+            return new Specification<>(nameSelector, addressSelector);
         }
 
         @Override

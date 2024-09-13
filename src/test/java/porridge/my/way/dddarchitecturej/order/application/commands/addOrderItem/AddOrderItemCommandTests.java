@@ -12,6 +12,7 @@ import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRep
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
+import porridge.my.way.dddarchitecturej.order.domain.models.Price;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -44,7 +45,7 @@ public class AddOrderItemCommandTests {
 
     @SneakyThrows
     private OrderItem createAnOrderItem() {
-        OrderItem orderItem = OrderItem.create(1, new BigDecimal(1), 1);
+        OrderItem orderItem = OrderItem.create(1, Price.create(BigDecimal.ONE).get(), 1);
         return orderItem;
     }
 

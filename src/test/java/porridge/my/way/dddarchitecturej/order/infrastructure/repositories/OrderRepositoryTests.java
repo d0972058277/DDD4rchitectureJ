@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.Order;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
+import porridge.my.way.dddarchitecturej.order.domain.models.Price;
 
 import java.math.BigDecimal;
 
@@ -23,12 +24,12 @@ public class OrderRepositoryTests {
     @Test
     public void test_Hibernate() {
         Order order = Order.create(CustomerInfo.create("name", "address").get());
-        order.add(OrderItem.create(1, new BigDecimal(1), 1));
+        order.add(OrderItem.create(1, Price.create(BigDecimal.ONE).get(), 1));
         orderRepository.add(order);
         Order orderSaved = orderRepository.find(order.getId());
         assertThat(orderSaved).isEqualTo(order);
 
-        orderSaved.add(OrderItem.create(1, new BigDecimal(1), 1));
+        orderSaved.add(OrderItem.create(1, Price.create(BigDecimal.ONE).get(), 1));
         orderRepository.save(orderSaved);
         Order orderAdjusted = orderRepository.find(order.getId());
         assertThat(orderAdjusted.getOrderItems().size()).isEqualTo(2);

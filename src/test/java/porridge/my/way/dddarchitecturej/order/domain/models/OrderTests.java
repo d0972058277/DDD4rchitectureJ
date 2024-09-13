@@ -45,6 +45,6 @@ public class OrderTests {
 
     @SneakyThrows
     private OrderItem createOrderItem() {
-        return OrderItem.create(1, new BigDecimal(1), 1);
+        return OrderItem.create(1, Price.create(BigDecimal.ONE).get(), 1);
     }
 }

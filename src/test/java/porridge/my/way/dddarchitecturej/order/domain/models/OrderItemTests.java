@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OrderItemTests {
     @SneakyThrows
-    private static OrderItem createOrderItem(int productId, BigDecimal price, int quantity) {
+    private static OrderItem createOrderItem(int productId, Price price, int quantity) {
         return OrderItem.create(productId, price, quantity);
     }
 
@@ -20,7 +20,7 @@ public class OrderItemTests {
     public void test_應該能夠成功建立() {
         // Given
         int productId = 1;
-        BigDecimal price = new BigDecimal(1);
+        Price price = Price.create(BigDecimal.ONE).get();
         int quantity = 1;
 
         // When
@@ -33,38 +33,24 @@ public class OrderItemTests {
     }
 
     @Test
-    public void test_price為0_建立時應該拋出例外() {
-        // Given
-        int productId = 1;
-        BigDecimal price = new BigDecimal(0);
-        int quantity = 1;
-
-        // When
-        Supplier<OrderItem> supplier = () -> createOrderItem(productId, price, quantity);
-
-        // Then
-        assertThatThrownBy(() -> supplier.get()).isInstanceOf(IllegalArgumentDomainException.class);
-    }
-
-    @Test
     public void test_quantity為0_建立時應該拋出例外() {
         // Given
         int productId = 1;
-        BigDecimal price = new BigDecimal(1);
+        Price price = Price.create(BigDecimal.ONE).get();
         int quantity = 0;
 
         // When
         Supplier<OrderItem> supplier = () -> createOrderItem(productId, price, quantity);
 
         // Then
-        assertThatThrownBy(() -> supplier.get()).isInstanceOf(IllegalArgumentDomainException.class);
+        assertThatThrownBy(supplier::get).isInstanceOf(IllegalArgumentDomainException.class);
     }
 
     @Test
     public void test_應該能夠取得總金額() {
         // Given
         int productId = 1;
-        BigDecimal price = new BigDecimal(1);
+        Price price = Price.create(BigDecimal.ONE).get();
         int quantity = 1;
         OrderItem orderItem = createOrderItem(productId, price, quantity);
 
