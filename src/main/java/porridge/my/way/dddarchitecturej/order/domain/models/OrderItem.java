@@ -17,24 +17,21 @@ import java.util.UUID;
 public class OrderItem extends Entity<UUID> {
     private int productId;
     private Price price;
-    private int quantity;
+    private Quantity quantity;
 
-    private OrderItem(UUID id, int productId, Price price, int quantity) {
+    private OrderItem(UUID id, int productId, Price price, Quantity quantity) {
         super(id);
         this.productId = productId;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public static OrderItem create(int productId, Price price, int quantity) throws IllegalArgumentDomainException {
-        if (quantity <= 0)
-            throw new IllegalArgumentDomainException("Quantity must be positive");
-
+    public static OrderItem create(int productId, Price price, Quantity quantity) throws IllegalArgumentDomainException {
         UUID id = SequentialUUID.generateUUID();
         return new OrderItem(id, productId, price, quantity);
     }
 
     public BigDecimal getTotalPrice() {
-        return price.getValue().multiply(BigDecimal.valueOf(quantity));
+        return price.getValue().multiply(BigDecimal.valueOf(quantity.getValue()));
     }
 }

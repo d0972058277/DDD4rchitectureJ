@@ -6,9 +6,8 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 import org.springframework.stereotype.Component;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
-import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 import porridge.my.way.dddarchitecturej.order.domain.models.Price;
+import porridge.my.way.dddarchitecturej.order.domain.models.Quantity;
 
 import java.lang.annotation.*;
 
@@ -34,14 +33,14 @@ public @interface AddOrderItemRequestConstraint {
                 return false;
             }
 
-            try {
-                OrderItem.create(value.getProductId(), priceTry.get(), value.getQuantity());
-                return true;
-            } catch (IllegalArgumentDomainException e) {
+            Try<Quantity> quantityTry = Quantity.create(value.getQuantity());
+            if (quantityTry.isFailure()) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(e.getMessage()).addConstraintViolation();
+                context.buildConstraintViolationWithTemplate(quantityTry.getCause().getMessage()).addConstraintViolation();
                 return false;
             }
+
+            return true;
         }
     }
 }

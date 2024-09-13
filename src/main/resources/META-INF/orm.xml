@@ -56,4 +56,13 @@
         </attributes>
     </embeddable>
 
+    <embeddable class="porridge.my.way.dddarchitecturej.order.domain.models.Quantity"
+                access="FIELD">
+        <attributes>
+            <basic name="value">
+                <column name="quantity"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
 </entity-mappings>

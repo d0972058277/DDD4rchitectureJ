@@ -10,6 +10,7 @@ import porridge.my.way.dddarchitecturej.order.application.commands.createOrder.C
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
 import porridge.my.way.dddarchitecturej.order.domain.models.Price;
+import porridge.my.way.dddarchitecturej.order.domain.models.Quantity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,7 +29,7 @@ class ListOrderItemsQueryHandlerTest {
         CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create("name", "address").get());
         UUID orderId = mediator.send(createOrderCommand);
 
-        AddOrderItemCommand addOrderItemCommand = new AddOrderItemCommand(orderId, OrderItem.create(1, Price.create(BigDecimal.ONE).get(), 1));
+        AddOrderItemCommand addOrderItemCommand = new AddOrderItemCommand(orderId, OrderItem.create(1, Price.create(BigDecimal.ONE).get(), Quantity.create(1).get()));
         mediator.send(addOrderItemCommand);
 
         ListOrderItemsQuery listOrderItemsQuery = new ListOrderItemsQuery(orderId);
