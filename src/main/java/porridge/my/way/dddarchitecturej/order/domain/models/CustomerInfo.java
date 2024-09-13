@@ -23,7 +23,7 @@ public class CustomerInfo extends ValueObject {
     }
 
     public static Try<CustomerInfo> create(String name, String address) {
-        CustomerInfoSpecification<CustomerInfo> specification = CustomerInfoSpecification.create(Selector.set(CustomerInfo::getName, Fields.name), Selector.set(CustomerInfo::getAddress, Fields.address));
+        Specification<CustomerInfo> specification = Specification.create(Selector.set(CustomerInfo::getName, Fields.name), Selector.set(CustomerInfo::getAddress, Fields.address));
         CustomerInfo customerInfo = new CustomerInfo(name, address);
         return specification.isSatisfiedBy(customerInfo);
     }
@@ -34,12 +34,12 @@ public class CustomerInfo extends ValueObject {
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    static class CustomerInfoSpecification<T> extends SpecificationBase<T> {
+    public static class Specification<T> extends SpecificationBase<T> {
         private final ISelector<T, String> nameSelector;
         private final ISelector<T, String> addressSelector;
 
-        public static <T> CustomerInfoSpecification<T> create(ISelector<T, String> nameSelector, ISelector<T, String> addressSelector) {
-            return new CustomerInfoSpecification<T>(nameSelector, addressSelector);
+        public static <T> Specification<T> create(ISelector<T, String> nameSelector, ISelector<T, String> addressSelector) {
+            return new Specification<T>(nameSelector, addressSelector);
         }
 
         @Override

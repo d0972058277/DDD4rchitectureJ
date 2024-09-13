@@ -2,6 +2,7 @@ package porridge.my.way.dddarchitecturej.order.controller;
 
 import an.awesome.pipelinr.Voidy;
 import io.vavr.control.Try;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.ICommand;
@@ -28,10 +29,14 @@ public class OrderController {
     }
 
     @PostMapping
-    public CreateOrderResponse create(@RequestBody CreateOrderRequest request) throws Throwable {
+    public CreateOrderResponse create(@Valid @RequestBody CreateOrderRequest request) throws Throwable {
         Try<CreateOrderCommand> commandTry = request.toCommand();
-        CreateOrderCommand command = commandTry.getOrElseThrow(Throwable::getCause);
-        UUID executed = mediator.send(command);
+
+        if (commandTry.isFailure()) {
+            throw commandTry.getCause();
+        }
+
+        UUID executed = mediator.send(commandTry.get());
         return new CreateOrderResponse(executed);
     }
 
