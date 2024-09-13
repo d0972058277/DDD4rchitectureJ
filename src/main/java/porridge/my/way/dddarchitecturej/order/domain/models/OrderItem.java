@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import porridge.my.way.dddarchitecturej.architecture.SequentialUUID;
 import porridge.my.way.dddarchitecturej.architecture.core.Entity;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -26,7 +25,7 @@ public class OrderItem extends Entity<UUID> {
         this.quantity = quantity;
     }
 
-    public static OrderItem create(int productId, Price price, Quantity quantity) throws IllegalArgumentDomainException {
+    public static OrderItem create(int productId, Price price, Quantity quantity) {
         UUID id = SequentialUUID.generateUUID();
         return new OrderItem(id, productId, price, quantity);
     }

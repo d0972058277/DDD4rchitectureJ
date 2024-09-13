@@ -32,7 +32,7 @@ public class Quantity extends ValueObject {
     }
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    static class Specification<T> extends SpecificationBase<T> {
+    public static class Specification<T> extends SpecificationBase<T> {
         private final ISelector<T, Integer> valueSelector;
 
         public static <T> Specification<T> create(ISelector<T, Integer> valueSelector) {

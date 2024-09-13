@@ -6,6 +6,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 import org.springframework.stereotype.Component;
+import porridge.my.way.dddarchitecturej.architecture.core.Selector;
 import porridge.my.way.dddarchitecturej.order.domain.models.Price;
 import porridge.my.way.dddarchitecturej.order.domain.models.Quantity;
 
@@ -25,21 +26,25 @@ public @interface AddOrderItemRequestConstraint {
     @Component
     class Validator implements ConstraintValidator<AddOrderItemRequestConstraint, AddOrderItemRequest> {
         @Override
-        public boolean isValid(AddOrderItemRequest value, ConstraintValidatorContext context) {
-            Try<Price> priceTry = Price.create(value.getPrice());
-            if (priceTry.isFailure()) {
+        public boolean isValid(AddOrderItemRequest request, ConstraintValidatorContext context) {
+            Price.Specification<AddOrderItemRequest> priceSpecification = Price.Specification.create(
+                    Selector.set(AddOrderItemRequest::getPrice, AddOrderItemRequest.Fields.price));
+            Try<AddOrderItemRequest> priceSpecificationTry = priceSpecification.isSatisfiedBy(request);
+            if (priceSpecificationTry.isFailure()) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(priceTry.getCause().getMessage()).addConstraintViolation();
+                context.buildConstraintViolationWithTemplate(priceSpecificationTry.getCause().getMessage()).addConstraintViolation();
                 return false;
             }
 
-            Try<Quantity> quantityTry = Quantity.create(value.getQuantity());
-            if (quantityTry.isFailure()) {
+            Quantity.Specification<AddOrderItemRequest> quantitySpecification = Quantity.Specification.create(
+                    Selector.set(AddOrderItemRequest::getQuantity, AddOrderItemRequest.Fields.quantity));
+            Try<AddOrderItemRequest> quantitySpecificationTry = quantitySpecification.isSatisfiedBy(request);
+            if (quantitySpecificationTry.isFailure()) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(quantityTry.getCause().getMessage()).addConstraintViolation();
+                context.buildConstraintViolationWithTemplate(quantitySpecificationTry.getCause().getMessage()).addConstraintViolation();
                 return false;
             }
-
+            
             return true;
         }
     }

@@ -4,7 +4,6 @@ import an.awesome.pipelinr.Voidy;
 import io.vavr.control.Try;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.ICommand;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.commands.createOrder.CreateOrderCommand;
@@ -31,10 +30,7 @@ public class OrderController {
     @PostMapping
     public CreateOrderResponse create(@Valid @RequestBody CreateOrderRequest request) throws Throwable {
         Try<CreateOrderCommand> commandTry = request.toCommand();
-
-        if (commandTry.isFailure()) {
-            throw commandTry.getCause();
-        }
+        if (commandTry.isFailure()) throw commandTry.getCause();
 
         UUID executed = mediator.send(commandTry.get());
         return new CreateOrderResponse(executed);
@@ -47,9 +43,11 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}/item")
-    public void addItem(@PathVariable UUID orderId, @RequestBody AddOrderItemRequest request) throws IllegalArgumentDomainException {
-        ICommand<Voidy> command = request.toCommand(orderId);
-        mediator.send(command);
+    public void addItem(@PathVariable UUID orderId, @Valid @RequestBody AddOrderItemRequest request) throws Throwable {
+        Try<ICommand<Voidy>> commandTry = request.toCommand(orderId);
+        if (commandTry.isFailure()) throw commandTry.getCause();
+
+        mediator.send(commandTry.get());
     }
 
     @GetMapping("{orderId}/item")
