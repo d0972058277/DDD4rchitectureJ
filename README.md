@@ -13,7 +13,6 @@
 
 ### Pending:
 
-- 加入 Result Pattern
 - 套用 Specification Pattern (Web Api Swagger)
 
 ### Issue:
