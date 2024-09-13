@@ -1,6 +1,7 @@
 package porridge.my.way.dddarchitecturej.order.controller;
 
 import an.awesome.pipelinr.Voidy;
+import io.vavr.control.Try;
 import org.springframework.web.bind.annotation.*;
 import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.ICommand;
@@ -26,8 +27,12 @@ public class OrderController {
 
     @PostMapping("/order")
     public CreateOrderResponse create(@RequestBody CreateOrderRequest request) throws IllegalArgumentDomainException {
-        ICommand<UUID> command = request.toCommand();
-        UUID executed = mediator.send(command);
+        Try<ICommand<UUID>> commandTry = request.toCommand();
+        if (commandTry.isFailure()) {
+            throw new IllegalArgumentDomainException(commandTry.getCause().getMessage());
+        }
+
+        UUID executed = mediator.send(commandTry.get());
         return new CreateOrderResponse(executed);
     }
 

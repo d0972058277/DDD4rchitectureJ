@@ -56,7 +56,7 @@ public class AddOrderItemCommandTests {
 
     @SneakyThrows
     private Order getOrder() {
-        Order order = Order.create(CustomerInfo.create("name", "address"));
+        Order order = Order.create(CustomerInfo.create("name", "address").get());
         order.clearDomainEvents();
         return order;
     }

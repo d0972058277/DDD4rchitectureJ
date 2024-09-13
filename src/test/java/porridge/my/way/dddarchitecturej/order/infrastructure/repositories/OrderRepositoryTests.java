@@ -22,7 +22,7 @@ public class OrderRepositoryTests {
     @SneakyThrows
     @Test
     public void test_Hibernate() {
-        Order order = Order.create(CustomerInfo.create("name", "address"));
+        Order order = Order.create(CustomerInfo.create("name", "address").get());
         order.add(OrderItem.create(1, new BigDecimal(1), 1));
         orderRepository.add(order);
         Order orderSaved = orderRepository.find(order.getId());

@@ -19,7 +19,7 @@ public class CustomerInfoTests {
 
     @SneakyThrows
     private CustomerInfo createCustomerInfo(String address, String name) {
-        return CustomerInfo.create(name, address);
+        return CustomerInfo.create(name, address).get();
     }
 
     @SneakyThrows

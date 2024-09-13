@@ -14,7 +14,7 @@ public class OrderTests {
     @Test
     public void test_應該能夠成功建立() {
         // Given
-        CustomerInfo customerInfo = CustomerInfo.create("name", "address");
+        CustomerInfo customerInfo = CustomerInfo.create("name", "address").get();
 
         // When
         Order order = Order.create(customerInfo);
@@ -40,7 +40,7 @@ public class OrderTests {
 
     @SneakyThrows
     private Order createOrder() {
-        return Order.create(CustomerInfo.create("name", "address"));
+        return Order.create(CustomerInfo.create("name", "address").get());
     }
 
     @SneakyThrows

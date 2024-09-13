@@ -24,7 +24,7 @@ class ListOrderItemsQueryHandlerTest {
     @SneakyThrows
     @Test
     void testListOrderItems() {
-        CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create("name", "address"));
+        CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create("name", "address").get());
         UUID orderId = mediator.send(createOrderCommand);
 
         AddOrderItemCommand addOrderItemCommand = new AddOrderItemCommand(orderId, OrderItem.create(1, BigDecimal.valueOf(1), 1));

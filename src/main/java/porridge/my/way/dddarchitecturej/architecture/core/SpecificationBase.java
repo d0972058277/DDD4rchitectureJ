@@ -1,6 +1,7 @@
 package porridge.my.way.dddarchitecturej.architecture.core;
 
 import io.vavr.control.Try;
+import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public abstract class SpecificationBase<T> {
     public Try<T> isSatisfiedBy(T entity) {
         for (SpecificationRule<T> rule : getRules()) {
             if (!rule.getValidate().test(entity)) {
-                return Try.failure(new IllegalArgumentException(rule.getMessage()));
+                return Try.failure(new IllegalArgumentDomainException(rule.getMessage()));
             }
         }
 
