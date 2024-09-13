@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.ICommand;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
+import porridge.my.way.dddarchitecturej.order.application.commands.createOrder.CreateOrderCommand;
 import porridge.my.way.dddarchitecturej.order.application.queries.getOrder.GetOrderOutcome;
 import porridge.my.way.dddarchitecturej.order.application.queries.getOrder.GetOrderQuery;
 import porridge.my.way.dddarchitecturej.order.application.queries.listOrderItems.ListOrderItemsOutcome;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/order")
 public class OrderController {
     private final IMediator mediator;
 
@@ -25,30 +27,27 @@ public class OrderController {
         this.mediator = mediator;
     }
 
-    @PostMapping("/order")
-    public CreateOrderResponse create(@RequestBody CreateOrderRequest request) throws IllegalArgumentDomainException {
-        Try<ICommand<UUID>> commandTry = request.toCommand();
-        if (commandTry.isFailure()) {
-            throw new IllegalArgumentDomainException(commandTry.getCause().getMessage());
-        }
-
-        UUID executed = mediator.send(commandTry.get());
+    @PostMapping
+    public CreateOrderResponse create(@RequestBody CreateOrderRequest request) throws Throwable {
+        Try<CreateOrderCommand> commandTry = request.toCommand();
+        CreateOrderCommand command = commandTry.getOrElseThrow(Throwable::getCause);
+        UUID executed = mediator.send(command);
         return new CreateOrderResponse(executed);
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/{orderId}")
     public GetOrderOutcome get(@PathVariable UUID orderId) {
         GetOrderQuery query = new GetOrderQuery(orderId);
         return mediator.send(query);
     }
 
-    @PostMapping("/order/{orderId}/item")
+    @PostMapping("/{orderId}/item")
     public void addItem(@PathVariable UUID orderId, @RequestBody AddOrderItemRequest request) throws IllegalArgumentDomainException {
         ICommand<Voidy> command = request.toCommand(orderId);
         mediator.send(command);
     }
 
-    @GetMapping("/order/{orderId}/item")
+    @GetMapping("{orderId}/item")
     public List<ListOrderItemsOutcome> listItems(@PathVariable UUID orderId) {
         ListOrderItemsQuery query = new ListOrderItemsQuery(orderId);
         return mediator.send(query);

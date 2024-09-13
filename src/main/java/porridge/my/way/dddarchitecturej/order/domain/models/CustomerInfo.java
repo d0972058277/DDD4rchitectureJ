@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 import porridge.my.way.dddarchitecturej.architecture.core.*;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class CustomerInfo extends ValueObject {
         this.address = address;
     }
 
-    public static Try<CustomerInfo> create(String name, String address) throws IllegalArgumentDomainException {
+    public static Try<CustomerInfo> create(String name, String address) {
         CustomerInfoSpecification<CustomerInfo> specification = CustomerInfoSpecification.create(Selector.set(CustomerInfo::getName, Fields.name), Selector.set(CustomerInfo::getAddress, Fields.address));
         CustomerInfo customerInfo = new CustomerInfo(name, address);
         return specification.isSatisfiedBy(customerInfo);
@@ -49,8 +48,8 @@ public class CustomerInfo extends ValueObject {
                     new SpecificationRule<>(
                             String.format("Parameter '%s' cannot be null or empty", nameSelector.getPropertyName()),
                             arg -> nameSelector.getValue(arg) != null && !nameSelector.getValue(arg).isBlank()),
-                    new SpecificationRule<>(String.format(
-                            "Parameter '%s' cannot be null or empty", addressSelector.getPropertyName()),
+                    new SpecificationRule<>(
+                            String.format("Parameter '%s' cannot be null or empty", addressSelector.getPropertyName()),
                             arg -> addressSelector.getValue(arg) != null && !addressSelector.getValue(arg).isBlank())
             );
         }

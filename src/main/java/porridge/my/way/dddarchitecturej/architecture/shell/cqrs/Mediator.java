@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class Mediator implements IMediator {
 
-    private Pipeline pipeline;
+    private final Pipeline pipeline;
 
     public Mediator(Pipeline pipeline) {
         this.pipeline = pipeline;

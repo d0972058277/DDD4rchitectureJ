@@ -1,9 +1,9 @@
 package porridge.my.way.dddarchitecturej.order.controller.models;
 
+import io.vavr.control.Try;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 
 import java.lang.annotation.*;
@@ -16,14 +16,15 @@ public @interface CreateOrderRequestConstraint {
     class Validator implements ConstraintValidator<CreateOrderRequestConstraint, CreateOrderRequest> {
         @Override
         public boolean isValid(CreateOrderRequest request, ConstraintValidatorContext context) {
-            try {
-                CustomerInfo.create(request.getName(), request.getAddress());
-                return true;
-            } catch (IllegalArgumentDomainException e) {
+            Try<CustomerInfo> customerInfoTry = CustomerInfo.create(request.getName(), request.getAddress());
+            
+            if (customerInfoTry.isFailure()) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(e.getMessage()).addConstraintViolation();
+                context.buildConstraintViolationWithTemplate(customerInfoTry.getCause().getMessage()).addConstraintViolation();
                 return false;
             }
+
+            return true;
         }
     }
 }
