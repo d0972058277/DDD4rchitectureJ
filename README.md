@@ -16,11 +16,6 @@
 - 加入 Result Pattern
 - 加入 Specification Pattern
 
-### Issue:
-
-- 加入 Validation，使 Request 傳入時即可驗證 Value Object 的 Domain Rule
-    - 有實作，但不知為何 ConstraintValidator 不能使用
-
 ---
 
 ### Problem Detail:
