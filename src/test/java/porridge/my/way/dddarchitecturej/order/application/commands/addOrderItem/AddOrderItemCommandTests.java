@@ -9,9 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import porridge.my.way.dddarchitecturej.architecture.shell.cqrs.IMediator;
 import porridge.my.way.dddarchitecturej.order.application.repositories.IOrderRepository;
-import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
-import porridge.my.way.dddarchitecturej.order.domain.models.Order;
-import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
+import porridge.my.way.dddarchitecturej.order.domain.models.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -44,8 +42,7 @@ public class AddOrderItemCommandTests {
 
     @SneakyThrows
     private OrderItem createAnOrderItem() {
-        OrderItem orderItem = OrderItem.create(1, new BigDecimal(1), 1);
-        return orderItem;
+        return OrderItem.create(1, Price.create(BigDecimal.ONE).get(), Quantity.create(1).get());
     }
 
     private UUID givenAnExistingOrder() {
@@ -56,7 +53,7 @@ public class AddOrderItemCommandTests {
 
     @SneakyThrows
     private Order getOrder() {
-        Order order = Order.create(CustomerInfo.create("name", "address"));
+        Order order = Order.create(CustomerInfo.create("name", "address").get());
         order.clearDomainEvents();
         return order;
     }

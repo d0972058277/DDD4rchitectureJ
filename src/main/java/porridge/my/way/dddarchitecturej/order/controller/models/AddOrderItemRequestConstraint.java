@@ -1,11 +1,13 @@
 package porridge.my.way.dddarchitecturej.order.controller.models;
 
 import jakarta.validation.Constraint;
-import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
-import porridge.my.way.dddarchitecturej.order.domain.models.OrderItem;
+import org.springframework.stereotype.Component;
+import porridge.my.way.dddarchitecturej.SpecificationValidator;
+import porridge.my.way.dddarchitecturej.architecture.core.Selector;
+import porridge.my.way.dddarchitecturej.order.domain.models.Price;
+import porridge.my.way.dddarchitecturej.order.domain.models.Quantity;
 
 import java.lang.annotation.*;
 
@@ -20,17 +22,15 @@ public @interface AddOrderItemRequestConstraint {
 
     Class<? extends Payload>[] payload() default {};
 
-    class Validator implements ConstraintValidator<AddOrderItemRequestConstraint, AddOrderItemRequest> {
+    @Component
+    class Validator extends SpecificationValidator<AddOrderItemRequestConstraint, AddOrderItemRequest> {
         @Override
-        public boolean isValid(AddOrderItemRequest value, ConstraintValidatorContext context) {
-            try {
-                OrderItem.create(value.getProductId(), value.getPrice(), value.getQuantity());
-                return true;
-            } catch (IllegalArgumentDomainException e) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(e.getMessage()).addConstraintViolation();
-                return false;
-            }
+        public boolean isValid(AddOrderItemRequest request, ConstraintValidatorContext context) {
+            return isSatisfiedBy(
+                    request,
+                    context,
+                    Price.Specification.create(Selector.set(AddOrderItemRequest::getPrice, AddOrderItemRequest.Fields.price)),
+                    Quantity.Specification.create(Selector.set(AddOrderItemRequest::getQuantity, AddOrderItemRequest.Fields.quantity)));
         }
     }
 }

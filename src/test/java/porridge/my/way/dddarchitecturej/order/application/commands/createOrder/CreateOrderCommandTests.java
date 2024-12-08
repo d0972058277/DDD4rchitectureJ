@@ -26,7 +26,7 @@ public class CreateOrderCommandTests {
     @Test
     public void testCreateOrderCommand() throws IllegalArgumentDomainException {
         // Given
-        CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create("name", "address"));
+        CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create("name", "address").get());
 
         // When
         mediator.send(createOrderCommand);

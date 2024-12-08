@@ -23,7 +23,7 @@ class GetOrderQueryHandlerTest {
         String name = "name";
         String address = "address";
 
-        CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create(name, address));
+        CreateOrderCommand createOrderCommand = new CreateOrderCommand(CustomerInfo.create(name, address).get());
         UUID orderId = mediator.send(createOrderCommand);
 
         GetOrderQuery getOrderQuery = new GetOrderQuery(orderId);

@@ -1,11 +1,11 @@
 package porridge.my.way.dddarchitecturej.order.controller.models;
 
 import jakarta.validation.Constraint;
-import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 import org.springframework.stereotype.Component;
-import porridge.my.way.dddarchitecturej.architecture.exceptions.IllegalArgumentDomainException;
+import porridge.my.way.dddarchitecturej.SpecificationValidator;
+import porridge.my.way.dddarchitecturej.architecture.core.Selector;
 import porridge.my.way.dddarchitecturej.order.domain.models.CustomerInfo;
 
 import java.lang.annotation.*;
@@ -22,17 +22,15 @@ public @interface CreateOrderRequestConstraint {
     Class<? extends Payload>[] payload() default {};
 
     @Component
-    class Validator implements ConstraintValidator<CreateOrderRequestConstraint, CreateOrderRequest> {
+    class Validator extends SpecificationValidator<CreateOrderRequestConstraint, CreateOrderRequest> {
         @Override
         public boolean isValid(CreateOrderRequest request, ConstraintValidatorContext context) {
-            try {
-                CustomerInfo.create(request.getName(), request.getAddress());
-                return true;
-            } catch (IllegalArgumentDomainException e) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(e.getMessage()).addConstraintViolation();
-                return false;
-            }
+            return isSatisfiedBy(
+                    request,
+                    context,
+                    CustomerInfo.Specification.create(
+                            Selector.set(CreateOrderRequest::getName, CreateOrderRequest.Fields.name),
+                            Selector.set(CreateOrderRequest::getAddress, CreateOrderRequest.Fields.address)));
         }
     }
 }
